@@ -19,17 +19,19 @@ void WSServer::on_message(const websocketpp::connection_hdl &hdl,
 
     try {
         auto payload = msg->get_payload();
-        if(payload == "a") {
+        if (payload == "a") {
             // This will spin off a thread
             _processor->Start({
-                                      .start_level = 2,
+                                      .calibration = true,
+//                                      .calibration = false,
+                                      .start_level = 500,
                                       .stop_level = 1,
                                       .auto_start = false,
                                       .auto_stop = false,
-                                      .label = "test",
+                                      .label = "calibration",
                                       .load_cell_sample_rate = 80,
-                                      .decimation = 1,
-//                                  .decimation = 80,
+//                                      .decimation = 1,
+                                      .decimation = 80,
                               });
         } else if (payload == "b") {
             // This will spin off a thread
@@ -39,6 +41,8 @@ void WSServer::on_message(const websocketpp::connection_hdl &hdl,
 //            _server.stop();
         } else if (payload == "t") {
             _processor->Tare();
+        } else if (payload == "l") {
+            _processor->GetLatestSample();
         }
 
     } catch (const std::exception &e) {

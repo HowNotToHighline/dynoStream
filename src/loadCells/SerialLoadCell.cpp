@@ -19,7 +19,7 @@ SerialLoadCell::SerialLoadCell() : LoadCellDriver() {
 
 unsigned int SerialLoadCell::UpdateData(float *buffer, unsigned int buffer_size) {
     uint8_t serial_buf[40];
-    unsigned int read_bytes = read(_fd, serial_buf, 40);
+    unsigned int read_bytes = read(_fd, serial_buf, std::min(40u, buffer_size * 4));
 
     unsigned int index = 0;
     uint32_t value = 0;
