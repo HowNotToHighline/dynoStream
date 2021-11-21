@@ -1,3 +1,4 @@
+#include <Calibrator.h>
 #include "server/WSServer.h"
 
 WSServer::WSServer(DataProcessor *processor) : _processor(processor) {}
@@ -34,7 +35,6 @@ void WSServer::on_message(const websocketpp::connection_hdl &hdl,
                                       .decimation = 80,
                               });
         } else if (payload == "b") {
-            // This will spin off a thread
             _processor->Stop();
         } else if (payload == "k") {
             _server.stop_listening();
@@ -43,6 +43,11 @@ void WSServer::on_message(const websocketpp::connection_hdl &hdl,
             _processor->Tare();
         } else if (payload == "l") {
             _processor->GetLatestSample();
+        } else if (payload == "c") { // Start calibration
+            // FIXME: Currently a memory leak, never deleted
+            _calibrator = new Calibrator;
+        } else if (payload == "p") { // Calibration point
+            _calibrator->AddMeasurement();
         }
 
     } catch (const std::exception &e) {

@@ -16,6 +16,7 @@ public:
 
 private:
     DataProcessor *_processor;
+    Calibrator *_calibrator;
     websocketpp::server<websocketpp::config::asio> _server;
 };
 

@@ -22,6 +22,6 @@ add_executable(dynoStream
         src/Decimator.cpp inc/Decimator.h
         src/DataProcessor.cpp inc/DataProcessor.h
         src/server/WSServer.cpp inc/server/WSServer.h
-        inc/loadCells/LoadCellDriver.h src/loadCells/SerialLoadCell.cpp inc/loadCells/SerialLoadCell.h)
+        inc/loadCells/LoadCellDriver.h src/loadCells/SerialLoadCell.cpp inc/loadCells/SerialLoadCell.h src/Calibrator.cpp inc/Calibrator.h)
 
 target_link_libraries(dynoStream Threads::Threads)
